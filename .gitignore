@@ -1,0 +1,14 @@
+# dependencies
+node_modules/
+
+# environment
+.env
+
+# logs
+logs/
+*.log
+
+# system
+.DS_Store
+dist/
+coverage/
