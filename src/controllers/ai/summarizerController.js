@@ -10,8 +10,7 @@ export const summarizeText = async (req, res) => {
 
     if (!summary || summary.includes("loading")) {
       return res.status(503).json({
-        message:
-          "The AI model is currently loading or unavailable. Please try again in a few seconds.",
+        message: "The AI model is currently loading or unavailable. Please try again in a few seconds.",
       });
     }
 
