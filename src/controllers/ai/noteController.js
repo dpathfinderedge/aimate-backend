@@ -18,6 +18,7 @@ export const generateNote = async (req, res, next) => {
     if (!aiResponse)
       return res.status(400).json({ message: "No note could be generated." });
 
+    
     const title = aiResponse.split("\n")[0].replace(/^#+\s*/, "").trim() || "Untitled Note";
 
     const note = await Note.create({

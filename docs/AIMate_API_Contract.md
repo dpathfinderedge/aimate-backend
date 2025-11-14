@@ -7,7 +7,7 @@ This document outlines all backend endpoints for **AIMate**, covering **Authenti
 
 ## 📍 Base URL
 ```
-https://aimate-api.onrender.com/api
+https://aimate-wgqk.onrender.com/api
 ```
 
 ---
@@ -96,7 +96,7 @@ https://aimate-api.onrender.com/api
 
 ### 5️⃣ Check Logged-in User
 **Endpoint:**  
-`GET /auth/check`
+**GET** `/auth/check`
 
 #### Response
 ```json
@@ -109,8 +109,8 @@ https://aimate-api.onrender.com/api
 }
 ```
 
-### 5️⃣ Get User Profile
-`GET /api/users`
+### 6️⃣ Get User Profile
+**GET** `/users/profile`
 
 ### Response
 ```json
@@ -180,7 +180,7 @@ https://aimate-api.onrender.com/api
 [
   {
     "user": "76gy7fs787",
-    title:
+    "title": "New Session"
   }
 ]
 ```
@@ -208,39 +208,30 @@ https://aimate-api.onrender.com/api
 
 #### Response
 ```json
-[
-  {
-    "sessionId": "672002cd",
-    "messages": [
-      { "sender": "user", "text": "Hello!" },
-      { "sender": "assistant", "text": "Hi! How can I help you today?" }
-    ]
-  }
-]
+{
+  "sessionId": "672002cd",
+  "systemPrompt": ""
+}
+
 ```
 
 ### 6️⃣ Update System Prompt
 **UPDATE** `/chat/session/:sessionId/system-prompt`  
-**Description:** Fetches the current system prompt of a user.
+**Description:** Updates existing system prompt of a user.
 
 #### Request Body
 ```json
 {
-  "system": "Enter prompt..."
+  "systemPrompt": "Enter prompt..."
 }
 ```
 
 #### Response
 ```json
-[
-  {
-    "sessionId": "672002cd",
-    "messages": [
-      { "sender": "user", "text": "Hello!" },
-      { "sender": "assistant", "text": "Hi! How can I help you today?" }
-    ]
-  }
-]
+{ 
+  "success": true, 
+  "session": { ... }
+}
 ```
 
 ---
@@ -319,27 +310,31 @@ https://aimate-api.onrender.com/api
 
 ### 📝 3️⃣ Note Taker  
 **POST** `/ai/notes`  
-**Description:** Allows users to create and manage notes.
+**Description:** Turns rough notes or ideas into a well-organized note with proper structure, headings, and clarity.
 
 #### Request Body
 ```json
 {
-  "userId": "671fcda891d3c2f1",
-  "title": "Meeting Notes",
-  "content": "Discussed new features for AIMate."
+  "content": "Meeting notes: discuss app launch, fix bugs,  prepare presentation for investors."
 }
 ```
 
 #### Response
 ```json
 {
-  "message": "Note saved successfully"
+ "sucess": true,
+"note": {
+    "user": "6906785a28c6347666732337",
+    "title": "**Meeting Notes: App Launch Preparation**",
+    "content": "**Meeting Notes: App Launch Preparation**\n\n**I. Key Discussion Points**\n\n1. **App Launch**: Review and confirm the launch plan, including timeline and key milestones.",
+  }
 }
 ```
 
-#### Fetch Notes  
+  
 **GET** `/ai/notes`  
-**Response:**
+**Description:** Fetches AI-structured notes.
+#### Response:
 ```json
 [
   {
@@ -394,24 +389,19 @@ https://aimate-api.onrender.com/api
 #### Response
 ```json
 {
-  "rewritten": "Artificial intelligence is transforming work by taking over routine tasks."
+  "success": true,
+  "saved": "Artificial intelligence is transforming work by taking over routine tasks."
 }
 ```
 
 **GET** `/ai/rewrites`  
 **Description:** Feches rewrite chat history.
 
-#### Request Body
-```json
-{
-  "text": "AI is changing the way we work by automating repetitive tasks."
-}
-```
-
 #### Response
 ```json
 {
-  "rewritten": "Artificial intelligence is transforming work by taking over routine tasks."
+  "success": true,
+  "rewrites": "Artificial intelligence is transforming work by taking over routine tasks."
 }
 ```
 
@@ -432,7 +422,6 @@ https://aimate-api.onrender.com/api
 ### 🧩 Notes
 - All authenticated routes require a valid **accessToken** in HTTP-only cookies.  
 - Refresh tokens are automatically managed via `/api/auth/refresh`.  
-- CORS and HTTPS must be properly configured for secure cookie handling.
 
 ---
 
