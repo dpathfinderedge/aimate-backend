@@ -31,7 +31,7 @@ export const register = async (req, res) => {
       .status(201)
       .cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "None",
         maxAge: 2 * 60 * 60 * 1000,
       })
@@ -41,7 +41,7 @@ export const register = async (req, res) => {
         rememberMe
           ? {
               httpOnly: true,
-              secure: process.env.NODE_ENV === "production",
+              secure: true,
               sameSite: "None",
               maxAge: 7 * 24 * 60 * 60 * 1000, 
             }
@@ -74,7 +74,7 @@ export const login = async (req, res) => {
     res
       .cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "None",
         maxAge: 2 * 60 * 60 * 1000, 
       })
@@ -84,7 +84,7 @@ export const login = async (req, res) => {
         rememberMe
           ? {
               httpOnly: true,
-              secure: process.env.NODE_ENV === "production",
+              secure: true,
               sameSite: "None",
               maxAge: 7 * 24 * 60 * 60 * 1000, 
             }
@@ -112,7 +112,7 @@ export const refreshAccessToken = (req, res) => {
     res
       .cookie("accessToken", newAccessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "None",
         maxAge: 2 * 60 * 60 * 1000,
       })
